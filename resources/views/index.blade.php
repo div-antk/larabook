@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{ asset('css/top.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <p>レビューしヨー⊂( ・∇・)⊃</p>
 
