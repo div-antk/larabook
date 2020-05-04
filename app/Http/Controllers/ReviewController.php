@@ -21,6 +21,12 @@ class ReviewController extends Controller
     {
         $post = $request->all();
         
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
         if ($request->hasFile('image')) {
         $request->file('image')->store('/public/images');
 
@@ -29,7 +35,7 @@ class ReviewController extends Controller
             'title' => $post['title'],
             'body' => $post['body'],
             'image' => $request->file('image')->hashName()
-            ];
+        ];
             
         } else {
             $data = [
@@ -41,6 +47,6 @@ class ReviewController extends Controller
         
         Review::insert($data);
         
-        return redirect('/');
+        return redirect('/')->with('flash_message', '投稿が完了しました');
     }
 }
